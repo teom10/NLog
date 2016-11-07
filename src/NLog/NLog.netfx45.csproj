@@ -15,8 +15,7 @@
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\NLog.snk</AssemblyOriginatorKeyFile>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
     <StyleCopTargetsFile>$(MSBuildExtensionsPath)\Microsoft\StyleCop\v4.4\Microsoft.StyleCop.Targets</StyleCopTargetsFile>
     <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -306,6 +305,7 @@
     <Compile Include="LayoutRenderers\Wrappers\ReplaceLayoutRendererWrapper.cs" />
     <Compile Include="LayoutRenderers\Wrappers\ReplaceNewLinesLayoutRendererWrapper.cs" />
     <Compile Include="LayoutRenderers\Wrappers\Rot13LayoutRendererWrapper.cs" />
+    <Compile Include="LayoutRenderers\Wrappers\SubstringLayoutRendererWrapper.cs" />
     <Compile Include="LayoutRenderers\Wrappers\TrimWhiteSpaceLayoutRendererWrapper.cs" />
     <Compile Include="LayoutRenderers\Wrappers\UppercaseLayoutRendererWrapper.cs" />
     <Compile Include="LayoutRenderers\Wrappers\UrlEncodeLayoutRendererWrapper.cs" />
