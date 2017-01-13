@@ -1364,7 +1364,8 @@ Dispose()
 
             public void Dispose()
             {
-                throw new NotImplementedException();
+                Transaction = null;
+                Connection = null;
             }
         }
 
