@@ -1262,8 +1262,6 @@ namespace NLog.Targets
         /// <param name="archiveFileName">Name of the archive file.</param>
         private void ArchiveFile(string fileName, string archiveFileName)
         {
-            FinalizeFile(fileName, isArchiving: true);
-
             string archiveFolderPath = Path.GetDirectoryName(archiveFileName);
             if (!Directory.Exists(archiveFolderPath))
                 Directory.CreateDirectory(archiveFolderPath);
@@ -1508,7 +1506,7 @@ namespace NLog.Targets
                 for (int i = existingArchiveFiles.Count - 1; i >= 0; i--)
                 {
                     var oldArchiveFile = existingArchiveFiles[i];
-                    if (!string.Equals(oldArchiveFile.FileName, fileName, StringComparison.InvariantCultureIgnoreCase))
+                    if (!string.Equals(oldArchiveFile.FileName, fileInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
                     {
                         DeleteOldArchiveFile(oldArchiveFile.FileName);
                         existingArchiveFiles.RemoveAt(i);
@@ -1525,7 +1523,7 @@ namespace NLog.Targets
                     // Extra handling when archive-directory is the same as logging-directory
                     for (int i = 0; i < existingArchiveFiles.Count; ++i)
                     {
-                        if (string.Equals(existingArchiveFiles[i].FileName, fileName, StringComparison.OrdinalIgnoreCase))
+                        if (string.Equals(existingArchiveFiles[i].FileName, fileInfo.FullName, StringComparison.OrdinalIgnoreCase))
                         {
                             existingArchiveFiles.RemoveAt(i);
                             break;
@@ -1539,7 +1537,9 @@ namespace NLog.Targets
                 foreach (var oldArchiveFile in cleanupArchiveFiles)
                     DeleteOldArchiveFile(oldArchiveFile.FileName);
 
-                ArchiveFile(fileName, archiveFileName.FileName);
+                FinalizeFile(fileName, isArchiving: true);
+
+                ArchiveFile(fileInfo.FullName, archiveFileName.FileName);
             }
         }
 
