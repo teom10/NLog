@@ -182,7 +182,7 @@ namespace NLog.LayoutRenderers
         /// </summary>
         /// <docgen category='Payload Options' order='10' />
         public bool IncludeNdc { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the NDC item separator.
         /// </summary>
@@ -248,16 +248,28 @@ namespace NLog.LayoutRenderers
                     xtw.WriteElementSafeString("log4j", "throwable", dummyNamespace, logEvent.Exception.ToString());
                 }
 
+                string ndcContent = null;
                 if (this.IncludeNdc)
                 {
-                    xtw.WriteElementSafeString("log4j", "NDC", dummyNamespace, string.Join(this.NdcItemSeparator, NestedDiagnosticsContext.GetAllMessages()));
+                    ndcContent = string.Join(this.NdcItemSeparator, NestedDiagnosticsContext.GetAllMessages());
                 }
 #if NET4_0 || NET4_5
                 if (this.IncludeNdlc)
                 {
-                    xtw.WriteElementSafeString("log4j", "NDLC", dummyNamespace, string.Join(this.NdlcItemSeparator, NestedDiagnosticsLogicalContext.GetAllMessages()));
+                    if (ndcContent != null)
+                    {
+                        //extra separator
+                        ndcContent += this.NdcItemSeparator;
+                    }
+                    ndcContent += string.Join(this.NdlcItemSeparator, NestedDiagnosticsLogicalContext.GetAllMessages());
                 }
 #endif
+
+                if (ndcContent != null)
+                {
+                    //NDLC and NDC should be in the same element
+                    xtw.WriteElementSafeString("log4j", "NDC", dummyNamespace, ndcContent);
+                }
 
                 if (logEvent.Exception != null)
                 {
