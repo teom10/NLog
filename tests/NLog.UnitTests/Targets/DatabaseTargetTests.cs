@@ -50,7 +50,7 @@ namespace NLog.UnitTests.Targets
     using System.Data.SqlClient;
 
 
-#if MONO || MONO_2_0
+#if MONO 
     using Mono.Data.Sqlite;
 #else
     using System.Data.SQLite;
@@ -856,7 +856,7 @@ Dispose()
                 DatabaseTarget testTarget = new DatabaseTarget("TestSqliteTarget");
                 testTarget.ConnectionString = connectionString;
                 string dbProvider = "";
-#if MONO || MONO_2_0
+#if MONO 
                 dbProvider = "Mono.Data.Sqlite.SqliteConnection, Mono.Data.Sqlite";
 #else
                 dbProvider = "System.Data.SQLite.SQLiteConnection, System.Data.SQLite";
@@ -923,7 +923,7 @@ Dispose()
 
                 var connectionString = sqlLite.GetConnectionString();
                 string dbProvider = "";
-#if MONO || MONO_2_0
+#if MONO 
                 dbProvider = "Mono.Data.Sqlite.SqliteConnection, Mono.Data.Sqlite";
 #else
                 dbProvider = "System.Data.SQLite.SQLiteConnection, System.Data.SQLite";
@@ -1717,7 +1717,7 @@ Dispose()
             public static void CreateDatabase(string dbName)
             {
 
-#if MONO || MONO_2_0
+#if MONO 
                 SqliteConnection.CreateFile(dbName);
 #else
                 SQLiteConnection.CreateFile(dbName);
@@ -1726,7 +1726,7 @@ Dispose()
 
             public static DbConnection GetConnection(string connectionString)
             {
-#if MONO || MONO_2_0
+#if MONO 
                 return new SqliteConnection(connectionString); 
 #else
                 return new SQLiteConnection(connectionString);
@@ -1735,7 +1735,7 @@ Dispose()
 
             public static DbCommand CreateCommand(string commandString, DbConnection connection)
             {
-#if MONO || MONO_2_0
+#if MONO 
                 return new SqliteCommand(commandString, (SqliteConnection)connection);
 #else
                 return new SQLiteCommand(commandString, (SQLiteConnection)connection);
